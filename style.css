@@ -5,8 +5,14 @@
     --current-secondary-color: var(--dark-mode-color);
 }
 
+@media (prefers-color-scheme: dark) {
+
+}
+
 body {
     margin: 0;
+    background-color: var(--current-theme-color);
+    color: var(--current-secondary-color);
 }
 
 #header {
