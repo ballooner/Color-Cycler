@@ -64,3 +64,7 @@ body {
     justify-content: right;
     gap: 1rem;
 }
+
+.color-content {
+    border-radius: 1rem;
+}
