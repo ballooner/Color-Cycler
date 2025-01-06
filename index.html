@@ -14,6 +14,30 @@
         <button id="theme-toggle" class="icon-button"><img src="icons/light_icon.svg" alt="Toggle dark mode" class="icon"></button>
     </div>
 
+    <div id="popup" class="invisible">
+        <form action="">
+            <div id="color-qa">
+                <label for="color">Enter a color: </label>
+                <input id="colorInput" type="text" name="color" id="name" pattern="^#[A-Fa-f0-9]{6}" required>
+            </div>
+            <div class="rIncrement">
+                <label for="rIncrement">Enter an R increment: </label>
+                <input id="rInput" type="number" name="rIncrement" id="rIncrement" required>
+            </div>
+            <div class="gIncrement">
+                <label for="gIncrement">Enter an G increment: </label>
+                <input id="gInput" type="number" name="gIncrement" id="gIncrement" required>
+            </div>
+            <div class="bIncrement">
+                <label for="bIncrement">Enter an B increment: </label>
+                <input id="bInput" type="number" name="bIncrement" id="bIncrement" required>
+            </div>
+            <div class="submit">
+                <input id="submit-button" type="submit">
+            </div>
+        </form>
+    </div>
+
     <div id="content">
         <template id="display-template">
             <div class="color-box">

@@ -44,7 +44,8 @@ themeToggleButton.addEventListener("click", (e) => {
 });
 
 //DisplayObject class
-//Inputs are: div of .color-box
+//Inputs are: DOM element
+//            Div of box
 class DisplayObject {
     #rIncrease = 0;
     #gIncrease = 0;
@@ -102,6 +103,7 @@ let boxList = [];
 const contentBox = document.querySelector("#content");
 const addBox = document.querySelector("#add-display");
 const boxTemplate = document.querySelector("#display-template");
+const popup = document.querySelector("#popup")
 
 addBox.addEventListener("click", (e) => {
     let newBox = boxTemplate.content.cloneNode(true);
@@ -114,5 +116,32 @@ addBox.addEventListener("click", (e) => {
 
     contentBox.appendChild(newBox);
     boxList.push(new DisplayObject(newBox));
+    console.log(newBox);
+
+    //Get box class inputs
+    let color;
+    let rIncrease;
+    let gIncrease; 
+    let bIncrease;
+
+    popup.classList.toggle("invisible");
+
+    //Disable buttons while popup is displayed
+    document.querySelectorAll("button").forEach((e) => (e.disabled = true));
+
+    popup.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        color = e.target.querySelector("#colorInput").value;
+        rIncrease = e.target.querySelector("#rInput").value;
+        gIncrease = e.target.querySelector("#gInput").value;
+        bIncrease = e.target.querySelector("#bInput").value;
+
+        popup.classList.toggle("invisible");
+
+        boxList[boxList.length - 1].setColor(color);
+
+        document.querySelectorAll("button").forEach((e) => (e.disabled = false));
+    });
 })
 
