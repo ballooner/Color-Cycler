@@ -51,15 +51,17 @@ class DisplayObject {
     #gIncrease = 0;
     #bIncrease = 0;
     #intervalMS = 250;
+    #colorContent;
 
     constructor(DOMObject) {
         this.DOMObject = DOMObject;
+        this.colorContent = DOMObject.querySelector(".color-content");
     }
 
     //String as hexadecimal color
     setColor(hexColor) {
         this.color = hexColor;
-        this.DOMObject.style.backgroundColor = hexColor;
+        this.colorContent.style.backgroundColor = hexColor;
     }
 
     getColor() {
@@ -97,16 +99,39 @@ class DisplayObject {
     }
 }
 
+//Get information from popup box
+const popup = document.querySelector("#popup")
+
+popup.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    let color = e.target.querySelector("#colorInput").value;
+    let rIncrease = e.target.querySelector("#rInput").value;
+    let gIncrease = e.target.querySelector("#gInput").value;
+    let bIncrease = e.target.querySelector("#bInput").value;
+
+    console.log("toggle");
+    popup.classList.toggle("invisible");
+
+    let newestBox = boxList[boxList.length - 1];
+
+    newestBox.setColor(color);
+    newestBox.setRIncrease(rIncrease);
+    newestBox.setGIncrease(gIncrease);
+    newestBox.setBIncrease(bIncrease);
+
+    document.querySelectorAll("button").forEach((e) => (e.disabled = false));
+});
+
 //Add a new color box to the display
 let boxList = [];
 
 const contentBox = document.querySelector("#content");
 const addBox = document.querySelector("#add-display");
 const boxTemplate = document.querySelector("#display-template");
-const popup = document.querySelector("#popup")
 
 addBox.addEventListener("click", (e) => {
-    let newBox = boxTemplate.content.cloneNode(true);
+    let newBox = boxTemplate.content.querySelector(".color-box").cloneNode(true);
 
     if (currentTheme === "dark") {
         newBox.querySelectorAll(".icon").forEach((e) => {
@@ -116,32 +141,8 @@ addBox.addEventListener("click", (e) => {
 
     contentBox.appendChild(newBox);
     boxList.push(new DisplayObject(newBox));
-    console.log(newBox);
-
-    //Get box class inputs
-    let color;
-    let rIncrease;
-    let gIncrease; 
-    let bIncrease;
 
     popup.classList.toggle("invisible");
-
-    //Disable buttons while popup is displayed
     document.querySelectorAll("button").forEach((e) => (e.disabled = true));
-
-    popup.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        color = e.target.querySelector("#colorInput").value;
-        rIncrease = e.target.querySelector("#rInput").value;
-        gIncrease = e.target.querySelector("#gInput").value;
-        bIncrease = e.target.querySelector("#bInput").value;
-
-        popup.classList.toggle("invisible");
-
-        boxList[boxList.length - 1].setColor(color);
-
-        document.querySelectorAll("button").forEach((e) => (e.disabled = false));
-    });
 })
 
